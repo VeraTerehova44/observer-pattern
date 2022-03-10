@@ -10,21 +10,39 @@ namespace weather_station
     {
         static void Main(string[] args)
         {
-            ConcreteSubject cs = new ConcreteSubject();
-            ConcreteObserver co1 = new ConcreteObserver();
-            ConcreteObserver co2 = new ConcreteObserver();
-            cs.registerObserver(co1);
-            cs.State = "1";
-            Console.WriteLine(co1.Count);
-            Console.WriteLine(co2.Count);
-            cs.registerObserver(co2);
-            cs.State = "2";
-            Console.WriteLine(co1.Count);
-            Console.WriteLine(co2.Count);
-            cs.removeObserver(co2);
-            cs.State = "3";
-            Console.WriteLine(co1.Count);
-            Console.WriteLine(co2.Count);
+            WeatherData sub = new WeatherData();
+
+            CurrentConditionsDisplay cd = new CurrentConditionsDisplay();
+            StatisticsDisplay sd = new StatisticsDisplay();
+            ForecastDisplay fd = new ForecastDisplay();
+
+            sub.registerObserver(cd);
+            sub.registerObserver(sd);
+            sub.registerObserver(fd);
+
+            sub.SetTemperature(20);
+            sub.SetPressure(760);
+            sub.SetHumidity(40);
+
+            Console.WriteLine(cd.Display());
+            Console.WriteLine();
+            Console.WriteLine(sd.Display());
+            Console.WriteLine();
+            Console.WriteLine(fd.Display());
+            Console.WriteLine();
+
+            sub.SetTemperature(12);
+            sub.SetPressure(780);
+            sub.SetHumidity(80);
+
+            Console.WriteLine(cd.Display());
+            Console.WriteLine();
+            Console.WriteLine(sd.Display());
+            Console.WriteLine();
+            Console.WriteLine(fd.Display());
+
+            sub.removeObserver(fd);
+
             Console.ReadKey();
         }
     }

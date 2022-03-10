@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace weather_station
 {
-    public interface Observer
+     public interface DisplayElement
     {
-        void update (float temperature, float humidity, float pressure);
+        string Display();
     }
 }
